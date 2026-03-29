@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+
+  <h1>JavaScript Check</h1>
+
+  <p id="js-enabled" style="display:none; color:green;">
+    js is enabled.
+  </p>
+
+  <noscript>
+    <p style="color:red;">
+      ❌ js is disabled.
+    </p>
+  </noscript>
+
+  <script>
+    document.getElementById("js-enabled").style.display = "block";
+  </script>
+
+</body>
+</html>

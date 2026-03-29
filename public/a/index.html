@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="preload" href="" />
+    <link rel="stylesheet" href="/assets/styles/ga.css" />
+    <script type="module" defer src="/assets/js/a.js" defer></script>
+    <script src="/assets/js/gsap.js"></script>
+
+    <script src="/assets/js/ganimation.js" defer></script>
+    <script src="/glass/glassJS.bundle.js"></script>
+    <script src="/glass/glassJS.sw.js"></script>
+    <script src="/glass/glassJS.config.js"></script>
+    <script type="module" defer src="/assets/js/search.js"></script>
+    <script defer src="/assets/js/auto.js"></script>
+    <link rel="stylesheet" href="/assets/styles/assets.css" />
+  </head>
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-T9C6WKFHGD"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-T9C6WKFHGD");
+  </script>
+  <body>
+    <div id="backgroundf"></div>
+
+    <iframe src="" frameborder="0" id="frame"></iframe>
+    <div id="goBackBtn" title="Go Back">⬅</div>
+
+    <div class="gamebody">
+      <div class="gamefilters">
+        <input
+          type="text"
+          id="gamesearch"
+          class="gamesearch"
+          placeholder="Search Apps or Tags"
+        />
+        <div class="genre-filters">
+          <label>
+            <input type="checkbox" class="genre-filter" value="AI" />
+            <div class="checkbox_highlight"><a>AI</a></div>
+          </label>
+          <label>
+            <input type="checkbox" class="genre-filter" value="shopping" />
+            <div class="checkbox_highlight"><a>Shopping</a></div>
+          </label>
+          <label>
+            <input type="checkbox" class="genre-filter" value="streaming" />
+            <div class="checkbox_highlight"><a>Streaming</a></div>
+          </label>
+          <label>
+            <input type="checkbox" class="genre-filter" value="cloud gaming" />
+            <div class="checkbox_highlight">
+              <a>Cloud Gami<span class="filler">haha6767</span>ng</a>
+            </div>
+          </label>
+          <label>
+            <input type="checkbox" class="genre-filter" value="development" />
+            <div class="checkbox_highlight"><a>Development</a></div>
+          </label>
+          <label>
+            <input type="checkbox" class="genre-filter" value="social media" />
+            <div class="checkbox_highlight"><a>Social Media</a></div>
+          </label>
+          <label>
+            <input type="checkbox" class="genre-filter" value="design" />
+            <div class="checkbox_highlight"><a>Design</a></div>
+          </label>
+          <label>
+            <input type="checkbox" class="genre-filter" value="other" />
+            <div class="checkbox_highlight">
+              <a>Other</a>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="games"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,301 @@
+<form id="bugForm">
+  <h2>Submit a Report</h2>
+
+  <label for="reportType">Report Type</label>
+  <select id="reportType" name="reportType">
+    <option value="Bug">Bug</option>
+    <option value="Suggestion">Suggestion</option>
+    <option value="Game/App Request">Game/App Request</option>
+  </select>
+
+  <label for="bug" class
+    >Describe the request/bug: Make sure to include
+    <strong class="highlight">WHERE</label
+  >
+  <textarea
+    id="bug"
+    name="bug"
+    rows="6"
+    placeholder="Describe your request, bug report, or suggestion"
+  ></textarea>
+
+  <button type="submit" id="submitBtn">Submit Report</button>
+  <p class="tip-message">
+    Tip: Problems with the pro<span class="filler">haha6767</span>xy can usually be solved by clearing your cache or
+    using a new link.
+  </p>
+</form>
+
+<div id="sent"></div>
+<div id="failed"></div>
+
+<script type="module">
+  const form = document.getElementById("bugForm");
+  const submitBtn = document.getElementById("submitBtn");
+
+  const supersecrectdreamoskey = "dreamOSSuperSecretKey";
+
+
+  async function getIpAddress() {
+    try {
+      const ipResponse = await fetch("https://api.ipify.org?format=json");
+      const ipData = await ipResponse.json();
+      return ipData.ip;
+    } catch (e) {
+      console.error("Could not fetch IP address:", e);
+      return null;
+    }
+  }
+
+  const ipAdress = await getIpAddress();
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const bugText = document.getElementById("bug").value;
+    const reportType = document.getElementById("reportType").value;
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Wait 15 seconds...";
+
+    if (!ipAdress) {
+      document.getElementById("failed").innerText = "Error: Could not determine IP address.";
+      document.getElementById("sent").innerText = "";
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Submit Report";
+      }, 15000);
+      return;
+    }
+
+    try {
+      const timestamp = new Date().getTime();
+      const bannedResponse = await fetch(
+        `/assets/json/banned.json?v=${timestamp}`
+      );
+      const bannedData = await bannedResponse.json();
+      const blockedIPs = new Set(bannedData);
+
+      if (blockedIPs.has(ipAdress)) {
+        document.getElementById("failed").innerText =
+          "You are banned for submitting 3 or more troll reports. You may appeal at https://tinyurl.com/dreamos";
+        document.getElementById("sent").innerText = "";
+      } else {
+        const encryptedIP = customSecureEncode(ipAdress, supersecrectdreamoskey);
+        const response = await fetch("/report-bug", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: reportType,
+            bug: bugText,
+            url: window.location.href,
+            ip: encryptedIP,
+          }),
+        });
+
+        if (response.ok) {
+          document.getElementById("sent").innerText =
+            "Report sent! You can view your report at https://tinyurl.com/dreamos";
+          document.getElementById("failed").innerText = "";
+          document.getElementById("bug").value = '';
+          document.getElementById("reportType").value = 'Bug';
+        } else {
+          document.getElementById("failed").innerText = "Failed to send report.";
+          document.getElementById("sent").innerText = "";
+        }
+      }
+    } catch (err) {
+      document.getElementById("failed").innerText = "Error: " + err.message;
+      document.getElementById("sent").innerText = "";
+    }
+
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Submit Report";
+    }, 15000);
+  });
+
+  function seededRandom(seed) {
+    let m = 0x80000000;
+    let a = 1103515245;
+    let c = 12345;
+    let state = seed ? seed : Math.floor(Math.random() * (m - 1));
+    return function () {
+      state = (a * state + c) % m;
+      return state / (m - 1);
+    };
+  }
+
+  function customSecureEncode(text, key, seed = 99) {
+    const rng = seededRandom(seed);
+    let encodedArr = [];
+    const keyLen = key.length;
+    for (let i = 0; i < text.length; i++) {
+      const charCode = text.charCodeAt(i);
+      const keyChar = key.charCodeAt(i % keyLen);
+      const salt = Math.floor(rng() * 100) + 1;
+      const transformed = (charCode ^ keyChar) + salt;
+      encodedArr.push(transformed);
+    }
+    const rawString = encodedArr.join("|");
+    return btoa(rawString);
+  }
+</script>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f4f6f8;
+    min-height: 100vh; 
+    margin: 0;
+    padding: 20px;
+    flex-direction: column;
+  }
+
+  #bugForm {
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    width: 100%; 
+    max-width: 400px; 
+  }
+
+  #bugForm h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+  }
+
+  .warning-message {
+    color: red;
+    font-weight: 600;
+    margin-bottom: 15px;
+    border: 1px solid red;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #ffeaea; 
+  }
+  
+  .tip-message {
+    color: #666; 
+    font-size: 13px;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px dashed #ddd;
+  }
+
+  #bugForm label {
+    font-weight: 600;
+    margin-bottom: 8px; 
+    display: block;
+    color: #444;
+    line-height: 1.4;
+  }
+
+  .highlight {
+    color: #444; 
+    font-weight: 800;
+  }
+
+  #bugForm select,
+  #bugForm textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px; 
+    font-family: inherit;
+    margin-bottom: 20px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  #bugForm textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  #bugForm select:focus,
+  #bugForm textarea:focus {
+    border-color: #414141;
+    box-shadow: 0 0 0 2px rgba(65, 65, 65, 0.2); 
+    outline: none;
+  }
+
+  #bugForm button {
+    width: 100%;
+    padding: 12px;
+    background: #414141; 
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+
+  #bugForm button:hover:not(:disabled) {
+    background: #2a2a2a; 
+    transform: translateY(-1px); 
+  }
+  
+  #bugForm button:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+  }
+
+  #sent,
+  #failed {
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  #sent {
+    color: #2a9d8f;
+  }
+
+  #failed {
+    color: #d9534f;
+  }
+  
+  p {
+    text-align: center;
+  }
+  
+  @media (max-width: 400px) {
+    #bugForm {
+      padding: 20px;
+      margin: 10px;
+      border-radius: 8px;
+    }
+    #bugForm h2 {
+      font-size: 20px;
+    }
+    #bugForm select,
+    #bugForm textarea,
+    #bugForm button {
+      font-size: 15px;
+      padding: 10px;
+    }
+  }
+    .filler {
+    position: absolute;
+    opacity: 0;
+  }
+
+</style>

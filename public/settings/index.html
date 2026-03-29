@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Settings</title>
+    <link rel="stylesheet" href="/assets/styles/settings.css" />
+    <link rel="stylesheet" href="/assets/styles/assets.css" />
+    <script defer src="/assets/js/settings.js"></script>
+  </head>
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-T9C6WKFHGD"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-T9C6WKFHGD");
+  </script>
+  <body>
+    <div class="backgroundf"></div>
+    <nav id="sideNav">
+      <ul>
+        <li><a href="#cloaks">Preferences</a></li>
+        <li><a href="#OS">OS Settings</a></li>
+        <li><a href="#browser">Browser Settings</a></li>
+        <li><a href="#about">About dreamOS</a></li>
+      </ul>
+    </nav>
+
+    <div class="cloaks" id="cloaks">
+      <h1 class="cloak">Preferences</h1>
+      <div class="blocks">
+        <div class="block">
+          <h2 class="blockTitle">AB Cloak</h2>
+          <p class="desc">
+            Opens the website in a hidden url and prevents blockers like
+            GoGuardian from seeing your screen. If about:blank is blocked, use
+            blob
+          </p>
+          <div>
+            <button onclick="aboutBlank()">Launch About:Blank</button>
+            <button onclick="launchBlob()">Launch Blob</button>
+          </div>
+        </div>
+        <div class="block">
+          <h2 class="blockTitle">Auto Cloak</h2>
+          <p class="desc">
+            Automatically opens the website in about:blank or blob upon
+            entering.
+            <br />
+            <span style="color: rgb(218, 135, 28)"
+              >*You must allow pop ups for this to work.</span
+            >
+          </p>
+          <p>Auto About Blank</p>
+          <input
+            type="checkbox"
+            role="switch"
+            class="circle"
+            onclick="checkAutoStatus()"
+            id="autoAbout"
+          />
+          <p>Auto Blob</p>
+          <input
+            type="checkbox"
+            role="switch"
+            class="circle"
+            onclick="checkAutoStatus()"
+            id="autoBlob"
+          />
+        </div>
+        <div class="block">
+          <h2 class="blockTitle">Anti-Close</h2>
+          <p class="desc">
+            Prevents teachers from closing this tab by launching the, "Your
+            saves may not be saved" pop up.
+            <br />
+            This works best with GoGuardian
+          </p>
+          <input
+            type="checkbox"
+            role="switch"
+            class="circle"
+            checked
+            onclick="antiClose()"
+            id="antiCloseButton"
+          />
+        </div>
+
+        <div class="block">
+          <h2 class="blockTitle">Tab Presets</h2>
+          <p class="desc">Changes how the tab looks like</p>
+          <div id="moreMenu" class="menu">
+            <div
+              class="menuItem"
+              onclick="updateTitleAndFavicon('Classroom', 'https://ssl.gstatic.com/classroom/favicon.png')"
+            >
+              Google Classroom
+            </div>
+            <div
+              class="menuItem"
+              onclick="updateTitleAndFavicon('Home - Google Drive', 'https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png')"
+            >
+              Google Drive
+            </div>
+            <div
+              class="menuItem"
+              onclick="updateTitleAndFavicon('Login', '/assets/img/icons/classlink.png')"
+            >
+              Classlink
+            </div>
+            <div
+              class="menuItem"
+              onclick="updateTitleAndFavicon('Google', 'https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico')"
+            >
+              Google
+            </div>
+            <div
+              class="menuItem"
+              onclick="updateTitleAndFavicon('dreamOS','/favicon.ico')"
+              style="color: rgb(241, 89, 89)"
+            >
+              Reset
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="OS" id="OS">
+      <h1 class="cloak">OS Settings</h1>
+      <div class="blocks">
+        <div class="block">
+          <h2 class="blockTitle">Change your name</h2>
+          <p class="desc">uhh pretty straighforward</p>
+          <div>
+            <input
+              type="text"
+              id="nameInput"
+              class="inputStuff"
+              placeholder="Enter your name"
+            />
+          </div>
+        </div>
+        <div class="block">
+          <h2 class="blockTitle">Glassmorphism</h2>
+          <p class="desc">
+            Disable Glassmorphism to improve performance on lower end devices.
+          </p>
+          <input
+            type="range"
+            id="glassmorphism-slider"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.432"
+          />
+        </div>
+
+        <div class="block">
+          <h2 class="blockTitle">Change Background</h2>
+          <p class="desc">For live backgrounds, use gifs</p>
+          <div class="chooseBg stagger2" id="chooseBg">
+            <div class="sdf stagger2">
+                <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/bg3.png')"
+              >
+                <img src="/assets/img/bg3.png" class="bgimg" />
+              </div>
+              <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/bg12.png')"
+              >
+                <img src="/assets/img/bg12.png" class="bgimg" />
+              </div>
+              <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/bg13.png')"
+              >
+                <img src="/assets/img/bg13.png" class="bgimg" />
+              </div>
+              <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/bg1.webp')"
+              >
+                <img src="/assets/img/bg1.webp" class="bgimg" />
+              </div>
+              <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/bg2.jpg')"
+              >
+                <img src="/assets/img/bg2.jpg" class="bgimg" />
+              </div>
+              <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/bg4.jpg')"
+              >
+                <img src="/assets/img/bg4.jpg" class="bgimg" />
+              </div>
+              <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/bg5.png')"
+              >
+                <img src="/assets/img/bg5.png" class="bgimg" />
+              </div>
+              <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/bg6.png')"
+              >
+                <img src="/assets/img/bg6.png" class="bgimg" />
+              </div>
+              <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/bg7.png')"
+              >
+                <img src="/assets/img/bg7.png" class="bgimg" />
+              </div>
+              <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/bg8.png')"
+              >
+                <img src="/assets/img/bg8.png" class="bgimg" />
+              </div>
+              <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/bg9.jpg')"
+              >
+                <img src="/assets/img/bg9.jpg" class="bgimg" />
+              </div>
+              <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/bg10.jpg')"
+              >
+                <img src="/assets/img/bg10.jpg" class="bgimg" />
+              </div>
+              <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/bg11.png')"
+              >
+                <img src="/assets/img/bg11.png" class="bgimg" />
+              </div>
+            </div>
+          </div>
+          <br /><br />
+          <h2 class="blockTitle">Live Backgrounds</h2>
+
+          <div class="chooseBg stagger2" id="chooseBg">
+            <div class="sdf stagger2">
+              <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/gojo.gif')"
+              >
+                <img src="/assets/img/gojo.gif" class="bgimg" />
+              </div>
+              <div
+                class="bgselect stagger2"
+                onclick="setDefaultBackground('/assets/img/space.gif')"
+              >
+                <img src="/assets/img/space.gif" class="bgimg" />
+              </div>
+            </div>
+          </div>
+          <br /><br />
+
+          <h2>Upload</h2>
+          <div class="bgselect stagger2 uploaddiv" id="uploaddiv">
+            <img src="/assets/img/upload.png" class="bgimg upload" />
+            <input
+              type="file"
+              id="fileInput"
+              accept="image/*"
+              style="display: none"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="browser" id="browser">
+      <h1 class="cloak">Browser Settings</h1>
+      <div class="blocks backgroundBlock">
+        <div class="block">
+          <h2 class="blockTitle">
+            Change Pr<span class="filler">haha6767</span>oxy
+          </h2>
+          <p class="desc">
+            This setting changes the browser's pro<span class="filler"
+              >haha6767</span
+            >xy to either UV or SJ. <br />
+            SJ supports more websites however, there will be some websites where
+            UV is superior.<br />Setting the prox<span class="filler"
+              >haha6767</span
+            >y type to "auto" will automatically switch the pr<span
+              class="filler"
+              >haha6767</span
+            >oxy for specific websites where one functions and the other does
+            not.
+            <br />
+            <br />
+            The default is auto.
+          </p>
+          <div>
+            <button onclick="setProxyType('SJ')">
+              Use Scram<span class="filler">haha6767</span>jet
+            </button>
+            <button onclick="setProxyType('UV')">
+              Use Ultra<span class="filler">haha6767</span>violet
+            </button>
+            <button onclick="setProxyType('Auto')">Auto</button>
+          </div>
+        </div>
+        <div class="block">
+          <h2 class="blockTitle">Transport</h2>
+          <p class="desc">
+            This setting changes the pro<span class="filler">haha6767</span>xy's
+            protocol. <br />
+            Epo<span class="filler">haha6767</span>xy is faster but libcurl
+            supports more sites such as GeForce Now
+            <br />
+            The default is li<span class="filler">haha6767</span>bcurl. <br />
+            <br />
+            <span style="color: rgb(218, 135, 28)"
+              >*This setting requires reload for changes to apply.</span
+            >
+          </p>
+          <div>
+            <button
+              onclick="localStorage.setItem('transportType', 'libcurl'), loadingShow('libcurl')"
+            >
+              Use Li<span class="filler">haha6767</span>bcurl
+            </button>
+            <button
+              onclick="localStorage.setItem('transportType', 'epoxy'),loadingShow('epoxy')"
+            >
+              Use Ep<span class="filler">haha6767</span>oxy
+            </button>
+          </div>
+        </div>
+        <div class="block">
+          <h2 class="blockTitle">Wi<span class="filler">haha6767</span>sp</h2>
+          <p class="desc">
+            Change the server that w<span class="filler">haha6767</span>isp uses
+            to con<span class="filler">haha6767</span>nect to the inte<span
+              class="filler"
+              >haha6767</span
+            >rnet. This is useful if you are experie<span class="filler"
+              >haha6767</span
+            >ncing issues with the default ser<span class="filler"
+              >haha6767</span
+            >ver. <br /><br />
+            <span style="color: rgb(218, 135, 28)"
+              >*This setting requires reload for changes to apply.</span
+            >
+          </p>
+
+          <div>
+            <input
+              type="text"
+              class="inputStuff"
+              id="wispInput"
+              placeholder="Change here..."
+            />
+            <button
+              onclick="loadingShow('Reset'); localStorage.setItem('wisp', 'default')"
+              style="margin-left: 15px"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <div class="block">
+          <h2 class="blockTitle">Change Search Engine</h2>
+          <p class="desc">
+            Changes the search engine of the pr<span class="filler"
+              >haha6767</span
+            >oxy. <br />
+            Please note that Google will <b>not</b> work with UV.
+          </p>
+          <div>
+            <button onclick="setSearchEngine('https://google.com/search?q=%s')">
+              Google
+            </button>
+            <button
+              onclick="setSearchEngine('https://search.brave.com/search?q=%s')"
+            >
+              Brave
+            </button>
+            <button onclick="setSearchEngine('https://duckduckgo.com/?q=%s')">
+              DuckDuckGo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about" id="about">
+      <h1 class="cloak">About Galaxy</h1>
+      <div class="blocks">
+        <div class="block">
+          <h2 class="blockTitle">Made by Konnermyhrvoldkkk :)</h2>
+          <p class="arial">(ik it's so tuff right)</p>
+          <button onclick="copy('https://github.com/Konnermyhrvoldkkk/dreamOS')">
+            Git<span class="filler">haha6767</span>hub
+          </button>
+          <button onclick="copy('https://discord.gg/g3adAQEHVZ')">
+            Dis<span class="filler">haha6767</span>cord
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
